@@ -2,19 +2,22 @@ from rest_framework import serializers
 from .models import Director, Movie, Review
 
 
-class DirectorSerializers(serializers.ModelSerializer):
+class DirectorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Director
-        fields = 'id name'.split()
-
-
-class MovieSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Movie
         fields = '__all__'
 
 
-class ReviewSerializers(serializers.ModelSerializer):
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = 'id text stars'.split()
+
+
+class MovieSerializer(serializers.ModelSerializer):
+    director = DirectorSerializer()
+    reviews = ReviewSerializer(many=True)
+
+    class Meta:
+        model = Movie
+        fields = 'id title description duration director reviews director_name'.split()
