@@ -16,15 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from movie_app import views
+from movie_app import views as movies_views
+from users import views as users_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/directors/', views.director_list_api_view),
-    path('api/v1/directors/<int:director_id>/', views.director_detail_api_view),
-    path('api/v1/movies/', views.movie_list_api_view),
-    path('api/v1/movies/<int:movie_id>/', views.movie_detail_api_view),
-    path('api/v1/reviews/', views.review_list_api_view),
-    path('api/v1/reviews/<int:review_id>/', views.review_detail_api_view),
+    path('api/v1/directors/', movies_views.director_list_api_view),
+    path('api/v1/directors/', movies_views.director_list_api_view),
+    path('api/v1/directors/<int:director_id>/', movies_views.director_detail_api_view),
+    path('api/v1/movies/', movies_views.movie_list_api_view),
+    path('api/v1/movies/<int:movie_id>/', movies_views.movie_detail_api_view),
+    path('api/v1/reviews/', movies_views.review_list_api_view),
+    path('api/v1/reviews/<int:review_id>/', movies_views.review_detail_api_view),
+
+    path('api/v1/users/auth/', users_views.auth_api_view),
+    path('api/v1/users/register/', users_views.register_api_view),
+
 ]
