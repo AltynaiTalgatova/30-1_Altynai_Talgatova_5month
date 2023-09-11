@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
 from movie_app import views as movies_views
 from users import views as users_views
 
@@ -33,4 +34,12 @@ urlpatterns = [
     path('api/v1/users/auth/', users_views.auth_api_view),
     path('api/v1/users/register/', users_views.register_api_view),
 
+    path('api/v1/directors_cbv/', movies_views.DirectorListCreateAPIView.as_view()),
+    path('api/v1/directors_cbv/<int:id>/', movies_views.DirectorRetrieveUpdateDestroyAPIView.as_view()),
+    path('api/v1/movies_cbv/', movies_views.MovieViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('api/v1/movies_cbv/<int:id>/', movies_views.MovieViewSet.as_view(
+        {'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}
+    )),
+    path('api/v1/reviews_cbv/', movies_views.ReviewListCreateAPIView.as_view()),
+    path('api/v1/reviews_cbv/<int:id>/', movies_views.ReviewRetrieveUpdateDestroyAPIView.as_view()),
 ]
